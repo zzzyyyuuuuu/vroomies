@@ -1,0 +1,7 @@
+[Default]
+save_dir=$HOME/Pictures/Screenshots
+save_filename_format=ss_%Y%m%d-%H%M%S.png
+show_panel=false
+line_size=5
+text_size=20
+text_font=JetBrainsMono Nerd Font

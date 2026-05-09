@@ -1,0 +1,38 @@
+[config]
+# ...
+
+[templates.hyprland]
+input_path = '~/.config/matugen/templates/colors.conf'
+output_path = '~/.config/hypr/colors.conf'
+post_hook = 'hyprctl reload'
+
+[templates.kitty]
+input_path = '~/.config/matugen/templates/kitty'
+output_path = '~/.config/kitty/color.conf'
+post_hook = 'pkill -SIGUSR1 kitty'
+
+[templates.m3colors]
+input_path = '~/.config/matugen/templates/colors.json'
+output_path = '~/.config/quickshell/Colors/colors.json'
+
+[templates.yazi]
+input_path = '~/.config/matugen/templates/yazi'
+output_path = '~/.config/yazi/theme.toml'
+
+[templates.cava]
+input_path = '~/.config/matugen/templates/cava-colors.ini'
+output_path = '~/.config/cava/config'
+post_hook = 'pkill -USR1 cava'
+
+[templates.nvim]
+input_path = '~/.config/matugen/templates/nvim'
+output_path = '~/.config/nvim/colors/colors.vim'
+post_hook = 'pkill -SIGUSR1 nvim'
+
+[templates.wlogout]
+input_path = '~/.config/matugen/templates/wlogout'
+output_path = '~/.config/wlogout/colors.css'
+
+[templates.files]
+input_path = '~/.config/matugen/templates/files.txt'
+output_path = '~/.config/matugen/files/files.txt'
