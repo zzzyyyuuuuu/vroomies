@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>vroomies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="noise"></div>
+
+<nav>
+  <span class="nav-logo">vroomies</span>
+  <div class="nav-links">
+    <a href="https://github.com/maxchennn/vroomies" target="_blank">GitHub</a>
+    <a href="#frames">Frames</a>
+    <a href="#install" class="btn-nav">Install</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-tag"><span class="dot"></span>Quickshell · Hyprland · Qt/QML</div>
+  <h1 class="hero-title">vroomies</h1>
+  <p class="hero-sub">Waybar is gone. The shell is redefined.<br>Feel the sway.</p>
+  <div class="hero-actions">
+    <a href="#install" class="cta-primary">Install now</a>
+    <a href="https://github.com/maxchennn/vroomies" target="_blank" class="cta-ghost">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.167 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.34-3.369-1.34-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.091-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.934.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.164 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+      maxchennn/vroomies
+    </a>
+  </div>
+  <div class="hero-img-wrap">
+    <img src="https://raw.githubusercontent.com/maxchennn/vroomies/main/frames/hero.png" alt="vroomies home screen" />
+  </div>
+</header>
+
+<section class="features">
+  <div class="features-grid">
+    <div class="feat-card">
+      <div class="feat-icon">⚡</div>
+      <h3>Quickshell Core</h3>
+      <p>Built entirely with Qt/QML — no CSS, no Waybar. A bar that actually renders fast.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🎨</div>
+      <h3>Beautiful by Default</h3>
+      <p>Fluid animations and deliberate tiling. A look that feels designed, not assembled.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🟢</div>
+      <h3>NVIDIA Ready</h3>
+      <p>Tested on RTX 40 series. No hacks, no overrides — fully compatible out of the box.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📡</div>
+      <h3>Wifi & Media</h3>
+      <p>Inline network and media controls. Everything in reach, nothing in the way.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🌊</div>
+      <h3>Workflow-first</h3>
+      <p>Tiling perfection meets fluid animations. Built for those who know what they want.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🚀</div>
+      <h3>Easy Install</h3>
+      <p>Idempotent scripts — IGNITE.sh for Fedora, AETHER.sh for Arch. Clean every time.</p>
+    </div>
+  </div>
+</section>
+
+<section class="frames" id="frames">
+  <div class="section-label">frames</div>
+  <div class="frames-stack">
+    <div class="frame-item">
+      <div class="frame-title">Home</div>
+      <img src="https://raw.githubusercontent.com/maxchennn/vroomies/main/frames/hero.png" alt="Home screenshot" />
+    </div>
+    <div class="frame-item">
+      <div class="frame-title">Dashboard</div>
+      <img src="https://raw.githubusercontent.com/maxchennn/vroomies/main/frames/dashboard.png" alt="Dashboard screenshot" />
+    </div>
+    <div class="frame-item">
+      <div class="frame-title">Wifi & Media Player</div>
+      <img src="https://raw.githubusercontent.com/maxchennn/vroomies/main/frames/wifi_and_media-player.png" alt="Wifi and Media Player screenshot" />
+    </div>
+  </div>
+</section>
+
+<section class="install" id="install">
+  <div class="section-label">install</div>
+  <div class="install-cards">
+    <div class="install-card">
+      <div class="distro-badge fedora">Fedora</div>
+      <pre><code>bash setup/IGNITE.sh</code></pre>
+      <p>Run IGNITE from the setup folder. Installs all dependencies automatically.</p>
+    </div>
+    <div class="install-card">
+      <div class="distro-badge arch">Arch</div>
+      <pre><code>bash setup/AETHER.sh</code></pre>
+      <p>Run AETHER from the setup folder. Idempotent — safe to run multiple times.</p>
+    </div>
+  </div>
+</section>
+
+<section class="community">
+  <div class="section-label">community</div>
+  <div class="community-links">
+    <a href="https://www.reddit.com/r/hyprland/" target="_blank" class="comm-link">
+      <span class="comm-title">r/hyprland</span>
+      <span class="comm-sub">The heart of the tiling world</span>
+    </a>
+    <a href="https://www.reddit.com/r/quickshell/" target="_blank" class="comm-link">
+      <span class="comm-title">r/quickshell</span>
+      <span class="comm-sub">For the shell wizards</span>
+    </a>
+    <a href="https://github.com/maxchennn/vroomies" target="_blank" class="comm-link">
+      <span class="comm-title">GitHub</span>
+      <span class="comm-sub">maxchennn/vroomies</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-quote">"Whatever happens, happens."</span>
+  <span class="footer-copy">vroomies · maxchennn</span>
+</footer>
+
+</body>
+</html>
