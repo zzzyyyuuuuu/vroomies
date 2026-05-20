@@ -39,7 +39,7 @@ All three scripts install the same core stack and drop the same config — only 
 
 ## Screenshots
 
-![Hero](frames/Hero.png)
+![Hero](frames/hero.png)
 ![Dashboard](frames/dashboard.png)
 ![Wifi & Media Player](frames/wifi_and_media-player.png)
 
