@@ -15,15 +15,17 @@ PanelWindow {
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
 
-    // Sol panel — barın sağına hizalı
     anchors { top: true; bottom: true; left: true }
-    margins { left: 70 }   // barın genişliği kadar boşluk
+    margins {
+        top: 76
+        bottom: 8
+        left: 8
+    }
     width: 280
 
     property string query: ""
     property var usageData: ({})
 
-    // ── Renkler (senin mevcut sisteminle aynı) ───────────────────────
     property color clrBackground:  "#151218"
     property color clrSurface:     "#211e24"
     property color clrPrimary:     "#d5bbfc"
@@ -32,7 +34,6 @@ PanelWindow {
     property color clrOutline:     "#49454e"
     property color clrSurfaceHigh: "#2c292f"
 
-    // ── Harici renk dosyası ──────────────────────────────────────────
     Process {
         id: colorProc
         command: ["bash", "-c", "cat " + Quickshell.env("HOME") + "/.config/quickshell/Colors/colors.json"]
@@ -53,7 +54,6 @@ PanelWindow {
         }
     }
 
-    // ── LocalStorage (usage tracking) ───────────────────────────────
     function getDb() {
         return LocalStorage.openDatabaseSync("launcher", "1.0", "Launcher Usage", 1000000)
     }
@@ -102,7 +102,6 @@ PanelWindow {
         slideIn.start()
     }
 
-    // ── Dış alan tıklaması → kapat ───────────────────────────────────
     Rectangle {
         anchors.fill: parent
         color: "transparent"
@@ -112,29 +111,22 @@ PanelWindow {
         }
     }
 
-    // ── Ana panel ────────────────────────────────────────────────────
     Rectangle {
         id: mainPanel
-        anchors {
-            top: parent.top; bottom: parent.bottom; left: parent.left
-            topMargin: 8; bottomMargin: 8
-        }
-        width: parent.width
-        radius: 10
+        anchors.fill: parent
+        radius: 14
         color: launcher.clrBackground
         opacity: 0
 
-        // Sağ kenara accent çizgisi
         Rectangle {
             anchors { right: parent.right; top: parent.top; bottom: parent.bottom }
-            width: 1
+            width: 1; radius: 1
             color: launcher.clrPrimary
-            opacity: 0.25
+            opacity: 0.2
         }
 
         Behavior on color { ColorAnimation { duration: 300 } }
 
-        // Açılış animasyonu: soldan kayarak gelir
         transform: Translate { id: slideOffset; x: -mainPanel.width }
 
         NumberAnimation {
@@ -143,7 +135,7 @@ PanelWindow {
             property: "x"
             from: -mainPanel.width
             to: 0
-            duration: 200
+            duration: 220
             easing.type: Easing.OutCubic
             onStarted: mainPanel.opacity = 1
         }
@@ -153,31 +145,25 @@ PanelWindow {
             anchors.margins: 14
             spacing: 10
 
-            // ── Başlık satırı ─────────────────────────────────────
             RowLayout {
                 Layout.fillWidth: true
-
                 Text {
                     text: "󱓞  Apps"
                     color: launcher.clrPrimary
-                    font.pixelSize: 15
-                    font.bold: true
-                    font.family: "JetBrains Mono"
+                    font.pixelSize: 15; font.bold: true
+                    font.family: "JetBrainsMono Nerd Font"
                     Behavior on color { ColorAnimation { duration: 300 } }
                 }
-
                 Item { Layout.fillWidth: true }
-
                 Text {
                     text: "Esc"
                     color: launcher.clrOutline
                     font.pixelSize: 10
-                    font.family: "JetBrains Mono"
+                    font.family: "JetBrainsMono Nerd Font"
                     Behavior on color { ColorAnimation { duration: 300 } }
                 }
             }
 
-            // ── Arama kutusu ──────────────────────────────────────
             Rectangle {
                 Layout.fillWidth: true
                 height: 44
@@ -197,7 +183,7 @@ PanelWindow {
                         text: "󰍉"
                         color: launcher.clrPrimary
                         font.pixelSize: 17
-                        font.family: "JetBrains Mono"
+                        font.family: "JetBrainsMono Nerd Font"
                         Behavior on color { ColorAnimation { duration: 300 } }
                     }
 
@@ -206,7 +192,7 @@ PanelWindow {
                         Layout.fillWidth: true
                         placeholderText: "Search..."
                         font.pixelSize: 14
-                        font.family: "JetBrains Mono"
+                        font.family: "JetBrainsMono Nerd Font"
                         color: launcher.clrOnSurface
                         focus: true
                         leftPadding: 0; rightPadding: 0
@@ -243,7 +229,7 @@ PanelWindow {
                         text: "✕"
                         color: launcher.clrOnSurfaceVar
                         font.pixelSize: 12
-                        font.family: "JetBrains Mono"
+                        font.family: "JetBrainsMono Nerd Font"
                         Behavior on color { ColorAnimation { duration: 300 } }
                         MouseArea {
                             anchors.fill: parent
@@ -254,18 +240,16 @@ PanelWindow {
                 }
             }
 
-            // ── Sonuç sayısı ──────────────────────────────────────
             Text {
                 visible: input.text.length > 0
                 text: filtered.values.length + " result" + (filtered.values.length !== 1 ? "s" : "")
                 color: launcher.clrOnSurfaceVar
                 font.pixelSize: 10
-                font.family: "JetBrains Mono"
+                font.family: "JetBrainsMono Nerd Font"
                 Layout.leftMargin: 2
                 Behavior on color { ColorAnimation { duration: 300 } }
             }
 
-            // ── Filtreli & sıralı model ───────────────────────────
             ScriptModel {
                 id: filtered
                 values: {
@@ -285,7 +269,6 @@ PanelWindow {
                 }
             }
 
-            // ── Uygulama listesi ──────────────────────────────────
             ListView {
                 id: list
                 Layout.fillWidth: true
@@ -331,7 +314,6 @@ PanelWindow {
                         anchors.rightMargin: 8
                         spacing: 10
 
-                        // İkon
                         Rectangle {
                             width: 34; height: 34
                             radius: 8
@@ -344,7 +326,6 @@ PanelWindow {
                             }
                         }
 
-                        // İsim + açıklama
                         ColumnLayout {
                             Layout.fillWidth: true
                             spacing: 2
@@ -353,7 +334,7 @@ PanelWindow {
                                 color: list.currentIndex === entry.index
                                     ? launcher.clrPrimary : launcher.clrOnSurface
                                 font.pixelSize: 13
-                                font.family: "JetBrains Mono"
+                                font.family: "JetBrainsMono Nerd Font"
                                 font.bold: list.currentIndex === entry.index
                                 elide: Text.ElideRight
                                 Layout.fillWidth: true
@@ -363,7 +344,7 @@ PanelWindow {
                                 text: entry.modelData.comment || entry.modelData.genericName || ""
                                 color: launcher.clrOnSurfaceVar
                                 font.pixelSize: 10
-                                font.family: "JetBrains Mono"
+                                font.family: "JetBrainsMono Nerd Font"
                                 elide: Text.ElideRight
                                 Layout.fillWidth: true
                                 visible: text.length > 0
@@ -371,19 +352,17 @@ PanelWindow {
                             }
                         }
 
-                        // Enter ikonu
                         Text {
                             visible: list.currentIndex === entry.index
                             text: "↵"
                             color: launcher.clrPrimary
                             font.pixelSize: 14
-                            font.family: "JetBrains Mono"
+                            font.family: "JetBrainsMono Nerd Font"
                             Behavior on color { ColorAnimation { duration: 300 } }
                         }
                     }
                 }
 
-                // Boş sonuç
                 Item {
                     anchors.centerIn: parent
                     visible: filtered.values.length === 0 && input.text.length > 0
@@ -395,7 +374,7 @@ PanelWindow {
                             text: "󰍉"
                             color: launcher.clrOutline
                             font.pixelSize: 32
-                            font.family: "JetBrains Mono"
+                            font.family: "JetBrainsMono Nerd Font"
                             Behavior on color { ColorAnimation { duration: 300 } }
                         }
                         Text {
@@ -403,7 +382,7 @@ PanelWindow {
                             text: "No results"
                             color: launcher.clrOnSurfaceVar
                             font.pixelSize: 13
-                            font.family: "JetBrains Mono"
+                            font.family: "JetBrainsMono Nerd Font"
                             Behavior on color { ColorAnimation { duration: 300 } }
                         }
                     }
