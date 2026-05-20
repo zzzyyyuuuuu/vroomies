@@ -1,7 +1,5 @@
 #!/bin/bash
-
-# vroomies  Fedora Power-User Setup
-
+# Vroomies Fedora Power-User Setup
 set -e
 
 echo "Starting - 'Whatever happens, happens.' / Cowboy Bebop"
@@ -13,16 +11,17 @@ else
 fi
 
 official_pkgs=(
-    'hyprland' 'swww' 'fastfetch' 'btop' 'fish' 'kitty' 'neovim' 
+    'hyprland' 'swww' 'fastfetch' 'btop' 'fish' 'kitty' 'neovim'
     'vlc' 'flatpak' 'pavucontrol' 'dolphin' 'qt6-qtdeclarative' 'qt6-qtquickcontrols2'
     'git' 'unzip' 'wget' 'mesa-va-drivers' 'intel-media-driver'
+    'xdg-desktop-portal-hyprland' 'xdg-desktop-portal-gnome'
+    'zoxide' 'starship'
 )
 
 echo "System Update - 'Domain Expansion: Infinite Void.' / Jujutsu Kaisen"
 $PACKAGE_MANAGER update -y
 
 GPU=$(lspci | grep -iE 'vga|3d')
-
 if [[ $GPU == *"NVIDIA"* ]]; then
     echo "NVIDIA Drivers - 'Power is not will, it is the phenomenon of physically making things happen.' / High School DxD"
     $PACKAGE_MANAGER install -y akmod-nvidia xorg-x11-drv-nvidia-cuda
@@ -32,7 +31,20 @@ elif [[ $GPU == *"AMD"* ]]; then
 fi
 
 echo "Official Packages - 'I'll take a potato chip... and EAT IT!' / Death Note"
+echo "⚠️  WARNING: xdg-desktop-portal-hyprland and xdg-desktop-portal-gnome are being installed. If you have another portal active, conflicts may occur!"
 $PACKAGE_MANAGER install -y "${official_pkgs[@]}"
+
+echo "AUR does not exist here - Installing Papirus via DNF - 'See you Space Cowboy... but first, let's make it pretty.' / Cowboy Bebop"
+echo "⚠️  WARNING: Papirus-Dark will be copied to ~/.local/share/icons/. Existing Papirus-Dark folder will be overwritten if present!"
+$PACKAGE_MANAGER install -y papirus-icon-theme
+ICONS_DIR="$HOME/.local/share/icons"
+if [ -d "/usr/share/icons/Papirus-Dark" ]; then
+    mkdir -p "$ICONS_DIR"
+    sudo cp -r /usr/share/icons/Papirus-Dark "$ICONS_DIR/"
+    echo "✅ Papirus-Dark copied to $ICONS_DIR"
+else
+    echo "⚠️  WARNING: /usr/share/icons/Papirus-Dark not found! Make sure papirus-icon-theme installed correctly."
+fi
 
 echo "Flatpaks - 'I am the God of the new world!' / Death Note"
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
@@ -42,10 +54,8 @@ echo "Linking Configs - 'Fear is necessary for evolution.' / Bleach"
 if [ ! -d "$HOME/.config" ]; then
     mkdir -p "$HOME/.config"
 fi
-
 [ -d "$HOME/vroomies/hypr" ] && ln -sf "$HOME/vroomies/hypr" "$HOME/.config/"
 [ -d "$HOME/vroomies/quickshell" ] && ln -sf "$HOME/vroomies/quickshell" "$HOME/.config/"
-
 if [ -d "./settings" ]; then
     cp -r ./settings/* "$HOME/.config/"
 fi
@@ -54,7 +64,6 @@ echo "Capturing Visions - 'No matter what happens, keep moving forward.' / Jujut
 if [ ! -d "$HOME/Pictures" ]; then
     mkdir -p "$HOME/Pictures"
 fi
-
 if [ -d "./visions" ]; then
     cp -rf "./visions" "$HOME/Pictures/"
 fi
@@ -71,7 +80,32 @@ echo "Setting Shell - 'To know sorrow is not terrifying. What is terrifying is t
 if command -v fish &> /dev/null; then
     sudo chsh -s /usr/bin/fish "$USER"
     mkdir -p "$HOME/.config/fish"
-    echo "fish_add_path \$HOME/.cargo/bin" >> "$HOME/.config/fish/config.fish"
+
+    cat > "$HOME/.config/fish/config.fish" << 'EOF'
+# --- SYSTEM ---
+# --- SHORTCUTS ---
+alias s="sudo dnf install"
+alias sy="sudo dnf check-update"
+alias y="sudo dnf upgrade"
+alias r="sudo dnf remove"
+alias yq="dnf list installed"
+alias ss="source ~/.config/fish/config.fish"
+alias n="sudo nano"
+alias f="fastfetch"
+abbr -a -- v "wpctl set-volume @DEFAULT_AUDIO_SINK@ 1.0"
+abbr -a -- c "cmatrix -b"
+abbr -a -- cv "cava"
+zoxide init fish | source
+starship init fish | source
+set fish_greeting
+
+# History
+set -U fish_history_path $HOME/.config/fish/fish_history
+EOF
+
+    echo "✅ config.fish written to $HOME/.config/fish/config.fish"
+else
+    echo "⚠️  WARNING: fish not found! Shell setup skipped."
 fi
 
 echo "Finish - 'See you space cowboy...' / Cowboy Bebop"
