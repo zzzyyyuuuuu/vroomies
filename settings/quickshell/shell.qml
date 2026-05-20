@@ -7,11 +7,13 @@ ShellRoot {
     property alias zyuTheme: zyuTheme
     property alias dashboardState: dashboardState
     property alias logoutState: logoutState
+    property alias settingsState: settingsState
     property bool musicVisible: false
-    property bool wifiVisible: false
+    property bool wifiVisible:  false
+    property bool btVisible:    false
 
     readonly property string configPath: Quickshell.env("HOME") + "/.config/quickshell"
-    readonly property string compPath: configPath + "/components"
+    readonly property string compPath:   configPath + "/components"
 
     QtObject {
         id: zyuTheme
@@ -24,14 +26,9 @@ ShellRoot {
         property int rounding:   15
         property font mainFont: Qt.font({family: "JetBrainsMono Nerd Font", pixelSize: 14, bold: true})
     }
-    QtObject {
-        id: dashboardState
-        property bool show: false
-    }
-    QtObject {
-        id: logoutState
-        property bool show: false
-    }
+    QtObject { id: dashboardState; property bool show: false }
+    QtObject { id: logoutState;    property bool show: false }
+    QtObject { id: settingsState;  property bool show: false }
 
     Process {
         id: colorProc
@@ -53,8 +50,10 @@ ShellRoot {
 
     Loader { source: compPath + "/Bar/Sway.qml" }
     Loader { source: compPath + "/Dashboard/Sway.qml" }
+    Loader { source: compPath + "/Settings/Settings.qml" }
     Loader { source: compPath + "/MusicPanel.qml" }
     Loader { source: compPath + "/WifiPanel.qml" }
+    Loader { source: compPath + "/BluetoothPanel.qml" }
     Loader { source: compPath + "/Clock.qml" }
     Loader { source: compPath + "/linux.qml" }
 }
