@@ -51,8 +51,8 @@ ShellRoot {
         Component.onCompleted: running = true
     }
 
-    Loader { source: compPath + "/Bar/bar.qml" }
-    Loader { source: compPath + "/Dashboard/Dashboard.qml" }
+    Loader { source: compPath + "/Bar/Sway.qml" }
+    Loader { source: compPath + "/Dashboard/Sway.qml" }
     Loader { source: compPath + "/MusicPanel.qml" }
     Loader { source: compPath + "/WifiPanel.qml" }
     Loader { source: compPath + "/Clock.qml" }
