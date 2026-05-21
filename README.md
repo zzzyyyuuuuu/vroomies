@@ -4,9 +4,7 @@
 
 hyprland + quickshell. no waybar. no bloat.
 
-🌐 **[vroomies.vercel.app](https://vroomies.vercel.app)**
-
-A collection of power-user setup scripts for Arch, Fedora, and Void Linux — built around Hyprland, Quickshell, and a clean anime-coded terminal life.
+A collection of power-user setup scripts for Arch, Fedora, Void Linux, and NixOS — built around Hyprland, Quickshell, and a clean anime-coded terminal life.
 
 ---
 
@@ -17,8 +15,9 @@ A collection of power-user setup scripts for Arch, Fedora, and Void Linux — bu
 | `AETHER.sh` | Arch Linux / Arch-based | `yay` / `paru` / `trizen` |
 | `IGNITE.sh` | Fedora | `dnf` |
 | `PHANTOM.sh` | Void Linux | `xbps` |
+| `EDEN.sh` | NixOS | `nix` + `home-manager` + flakes |
 
-All three scripts install the same core stack and drop the same config — only the package manager changes.
+AETHER, IGNITE and PHANTOM install the same core stack — only the package manager changes. EDEN is fully declarative via NixOS flakes + Home Manager.
 
 ---
 
@@ -27,7 +26,7 @@ All three scripts install the same core stack and drop the same config — only 
 - **WM:** Hyprland
 - **Shell:** Fish + Starship + Zoxide
 - **Bar / UI:** Quickshell
-- **Wallpaper:** swww
+- **Wallpaper:** awww (swww) 
 - **Terminal:** Kitty
 - **Editor:** Neovim
 - **Media:** VLC, Flatpak (Discord, LocalSend, OBS)
@@ -65,6 +64,9 @@ bash setup/IGNITE.sh
 
 # Void Linux
 bash setup/PHANTOM.sh
+
+# NixOS
+bash setup/EDEN.sh
 ```
 
 > Scripts will ask for a reboot at the end. Recommended to accept.
@@ -78,9 +80,14 @@ vroomies/
 ├── setup/
 │   ├── AETHER.sh         # Arch setup
 │   ├── IGNITE.sh         # Fedora setup
-│   └── PHANTOM.sh        # Void Linux setup
+│   ├── PHANTOM.sh        # Void Linux setup
+│   └── EDEN.sh           # NixOS setup
+├── nix/
+│   ├── flake.nix         # Flake inputs & outputs
+│   ├── configuration.nix # System config
+│   └── home.nix          # Home Manager config
 ├── fonts/                # Custom fonts
-├── frames/               # Frames
+├── frames/               # Screenshots (Hero.png, dashboard.png, wifi_and_media-player.png)
 ├── settings/             # Extra config files
 ├── visions/              # Wallpapers
 ├── index.html
